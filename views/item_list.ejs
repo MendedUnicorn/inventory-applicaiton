@@ -1,0 +1,9 @@
+<%- include("partials/upper", {active_tab: "item_list"}) %>
+<h1><%= title %></h1>
+<ul>
+  <% items.forEach(item => { %>
+    <%- include("partials/item", {item}) %> 
+  <% }) %>
+</ul>
+
+<%- include("partials/bottom") %>

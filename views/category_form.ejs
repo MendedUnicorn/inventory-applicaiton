@@ -1,0 +1,49 @@
+<%- include("partials/upper", {active_tab: "category_form"}) %>
+<h1><%= title %></h1>
+
+<div class="container-fluid">
+   <div class="row">
+    <h2>Current available categories:</h2>
+    <% categories.forEach(category => { %> 
+        <div class="tag mx-1">
+            <a href="<%= category.url %>"><p class="m-0"><%= category.name %></p></a>
+        </div>
+    <% }) %> 
+   </div>
+</div>
+<form action="" method="POST">
+    <div class="form-group">
+        <div class="form-floating my-3">
+            <input
+                type="text"
+                name="name"
+                class="form-control"
+                id="name"
+                placeholder="Item name"
+                value="<%= typeof category !== "undefined" ? category.name : "" %>"
+            />
+            <label for="name">Name:</label>
+        </div>
+        <div class="form-floating mb-3">
+            <textarea
+                class="form-control"
+                name="description"
+                placeholder="Leave a comment here"
+                id="description"
+                style="height: 100px"
+            ><%= typeof category !== "undefined" ? category.description : "" %></textarea>
+            <label for="description">Description</label>
+        </div>
+    </div>
+    <button class="btn btn-primary" type="submit">Submit</button>
+</form>
+<% if(typeof errors !== "undefined") { %>
+    <% errors.forEach(error => { %> 
+        <div class="alert alert-danger mt-3" role="alert">
+            <%= error.msg %>
+          </div>
+        <%}) %> 
+
+<% } %>
+
+<%- include("partials/bottom") %>

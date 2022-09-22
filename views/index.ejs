@@ -1,0 +1,9 @@
+<%- include("partials/upper", {active_tab: "index"}) %>
+<h1><%= title %></h1>
+<ul>
+  <li>There are: <%= data.item_count %> different items available for sale</li>
+  <li>There are: <%= data.category_count %> different categories to chose from</li>
+  <% console.log(data) %> 
+</ul>
+
+<%- include("partials/bottom") %>

@@ -1,0 +1,10 @@
+<%- include("partials/upper", {active_tab: "category_list"}) %>
+<h1><%= title %></h1>
+<dl class="list-group list-group-flush">
+  <% categories.forEach(category => { %>
+    <dt ><a href="<%= category.url %>"><%= category.name %></a> </dt>
+    <dd class="list-group-item"><%= category.description %></dd>
+  <% }) %>
+</dl>
+
+<%- include("partials/bottom") %>

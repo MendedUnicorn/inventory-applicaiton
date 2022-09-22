@@ -1,0 +1,36 @@
+<%- include("partials/upper", {active_tab: ""}) %>
+<h1><%= title %></h1>
+<dl class="my-3">
+  <dt><%= category.name%></dt>
+  <dd><%= category.description %></dd>
+</dl>
+
+<% if(items.length>0) { %> 
+    <div class="alert alert-danger my-3" role="alert">
+        Can't delete the category <%= category.name %>. Delete the following items first:  
+    </div>
+    <dl>
+
+        <% items.forEach(item => { %>
+         <a href="<%= item.url %>"><dt><%= item.name %></dt></a>
+            <dd><%= item.description %></dd>
+        <% }) %> 
+    </dl>
+    
+    
+<%} else { %> 
+    <div class="alert alert-warning my-3" role="alert">
+        Are you sure you wish to delete <%= category.name %>
+    </div>
+    <form action="" method="POST">
+        <div class="form-group">
+            <input type="hidden" value="<%= category._id %>" name="categoryid" >
+        </div>
+        <button class="btn btn-danger" type="submit">Delete</button>
+    </form>
+<%}%> 
+
+
+
+
+<%- include("partials/bottom") %>

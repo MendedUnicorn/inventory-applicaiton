@@ -1,0 +1,94 @@
+<%- include("partials/upper", {active_tab: "item_form"}) %>
+<h1><%= title %></h1>
+
+<form action="" method="POST">
+    <div class="form-group">
+        <div class="form-floating mb-3">
+        <input
+            type="text"
+            name="name"
+            class="form-control"
+            id="name"
+            placeholder="Item name"
+            value="<%= typeof item !== "undefined" ? item.name : "" %>"
+        />
+        <label for="name">Name:</label>
+        </div>
+
+        <div class="form-floating mb-3">
+        <textarea
+            class="form-control"
+            name="description"
+            placeholder="Leave a comment here"
+            id="description"
+            style="height: 100px"
+        ><%= typeof item !== "undefined" ? item.description : "" %></textarea>
+        <label for="description">Description</label>
+        </div>
+
+        <div class="form-group row justify-content-center mb-3">
+        <% categories.forEach(category => { %>
+        <div class="form-check col-auto">
+            <input class="form-check-input" name="category" type="checkbox" value="<%=category._id%>" id="<%=category._id %>" <%=(typeof category.checked !== "undefined") ? (category.checked ? "checked" : "") : "" %> >
+            <label class="form-check-label" for="<%=category._id %>">
+            <%=category.name %>
+            </label>
+        </div>
+        <% }) %>
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <div class="col-auto mb-3">
+            <label for="price">Price:</label>
+            <div class="input-group mb-3">
+                <span class="input-group-text" id="inputGroup-sizing-default">$</span>
+                <input
+                    type="number"
+                    name="price"
+                    class="form-control"
+                    id="price"
+                    placeholder="Item price"
+                    aria-label="Sizing example input"
+                    aria-describedby="inputGroup-sizing-default"
+                    value="<%= typeof item !== "undefined" ? item.price : "" %>"
+                /> 
+            </div>
+        </div>
+
+        <div class="col-auto mb-3">
+            <label for="number_in_stock">Quantity:</label>
+            <div class="input-group mb-3">
+                <span class="input-group-text" id="inputGroup-sizing-default">Qty</span>
+                <input
+                    type="number"
+                    name="number_in_stock"
+                    class="form-control"
+                    id="number_in_stock"
+                    placeholder="Quantity"
+                    aria-label="Sizing example input"
+                    aria-describedby="inputGroup-sizing-default"
+                    value="<%= typeof item !== "undefined" ? item.number_in_stock : "" %>"
+                /> 
+            </div>
+        </div>
+        <div class="col-auto align-items-center justify-content-center mb-3">
+            <div class="mb-3">
+                <br>
+                <button type="submit" class="btn btn-primary px-5">Add</button>
+            </div>
+        </div>
+    </div>
+
+</form>
+<% if(typeof errors !== "undefined") { %>
+    <% errors.forEach(error => { %> 
+        <div class="alert alert-danger" role="alert">
+            <%= error.msg %>
+          </div>
+        <%}) %> 
+
+<% } %>
+
+
+<%- include("partials/bottom") %>

@@ -1,0 +1,16 @@
+<%- include("partials/upper", {active_tab: ""}) %>
+<h1><%= title %></h1>
+<dl class="my-3">
+  <dt><%= category.name%></dt>
+  <dd><%= category.description %></dd>
+</dl>
+<ul>
+  <% items.forEach(item => { %>
+    <%- include("partials/item", {item}) %> 
+  <% }) %>
+</ul>
+<div class="buttons ">
+  <button class="btn btn-primary">Edit</button>
+  <a href="/catalog/category/<%= category._id %>/delete"><button class="btn btn-danger">Delete</button></a>
+</div>
+<%- include("partials/bottom") %>

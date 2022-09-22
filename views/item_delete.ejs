@@ -1,0 +1,29 @@
+<%- include("partials/upper", {active_tab: ""}) %>
+<h1><%= title %></h1>
+
+<div class="container">
+    <h2><%= item.name %></h2>
+    <div class="row ">
+        <div class="col-sm-8 position-relative">
+            <p  class="f-4" style="height:100px"><%= item.description %></p>
+               
+        </div>
+
+        <div class="col-sm-2">
+            <div class="img-container-large">
+                <img src="<%= typeof item.img !== "undefined" ? item.img : "" %>" alt="">
+            </div>
+        </div>
+    </div>
+</div>
+<div class="alert alert-warning my-3" role="alert">
+    Are you sure you wish to delete <%= item.name %>
+  </div>
+<form action="" method="POST">
+    <div class="form-group">
+        <input type="hidden" value="<%= item._id %>" name="itemid" >
+    </div>
+    <button class="btn btn-danger" type="submit">Delete</button>
+</form>
+
+<%- include("partials/bottom") %>

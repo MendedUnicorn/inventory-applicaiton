@@ -1,0 +1,31 @@
+<%- include("partials/upper", {active_tab: ""}) %>
+<h1><%= title %></h1>
+
+<div class="container">
+    <h2><%= item.name %></h2>
+    <div class="row ">
+        <div class="col-sm-8 position-relative">
+            <p  class="f-4" style="height:100px"><%= item.description %></p>
+            <div class="buttons position-absolute bottom-0">
+                <a href="/catalog/item/<%=item._id %>/update"><button class="btn btn-primary">Edit</button></a>
+                <a href="/catalog/item/<%= item._id %>/delete"><button class="btn btn-danger">Delete</button></a>
+            </div>
+                <div class="tags position-absolute bottom-0 end-0">
+                
+                <% item.category.forEach(category => { %> 
+                    <div class="tag mx-1">
+                        <a href="<%= category.url %>"><p class="m-0"><%= category.name %></p></a>
+                    </div>
+                <% }) %> 
+            </div>
+        </div>
+
+        <div class="col-sm-2">
+            <div class="img-container-large">
+                <img src="<%= typeof item.img !== "undefined" ? item.img : "" %>" alt="">
+            </div>
+        </div>
+    </div>
+</div>
+
+<%- include("partials/bottom") %>

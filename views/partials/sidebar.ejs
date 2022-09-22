@@ -1,0 +1,56 @@
+<div class="d-flex flex-column flex-shrink-0 p-3 bg-light">
+  <a
+    href="/"
+    class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-dark text-decoration-none"
+  >
+    <svg class="bi pe-none me-2" width="40" height="32">
+      <use xlink:href="#bootstrap"></use>
+    </svg>
+    <span class="fs-5">The Busy Business Store</span>
+  </a>
+  <hr />
+  <ul class="nav nav-pills flex-column mb-auto">
+    <li class="nav-item">
+      <a href="/catalog" class='nav-link <%= active_tab === "index" ? "active" : "" %>' <%= active_tab === "index" ? "aria-current=page" : "" %>>
+        <svg class="bi pe-none me-2" width="16" height="16">
+          <use xlink:href="#home"></use>
+        </svg>
+        Home
+      </a>
+    </li>
+    <li>
+      <a href="/catalog/items" class='nav-link <%= active_tab === "item_list" ? "active" : "" %>' <%= active_tab === "item_list" ? "aria-current=page" : "" %>>
+        <svg class="bi pe-none me-2" width="16" height="16">
+          <use xlink:href="#speedometer2"></use>
+        </svg>
+        All Items
+      </a>
+    </li>
+    <li>
+      <a href="/catalog/categories" class='nav-link <%= active_tab === "category_list" ? "active" : "" %>' <%= active_tab === "category_list" ? "aria-current=page" : "" %>>
+        <svg class="bi pe-none me-2" width="16" height="16">
+          <use xlink:href="#table"></use>
+        </svg>
+        All Categories
+      </a>
+    </li>
+    <li>
+<hr>
+      <a href="/catalog/item/create" class='nav-link <%= active_tab === "item_form" ? "active" : "" %>' <%= active_tab === "item_form" ? "aria-current=page" : "" %>>
+        <svg class="bi pe-none me-2" width="16" height="16">
+          <use xlink:href="#grid"></use>
+        </svg>
+        Create new Item
+      </a>
+    </li>
+    <li>
+      <a href="/catalog/category/create" class='nav-link <%= active_tab === "category_form" ? "active" : "" %>' <%= active_tab === "category_form" ? "aria-current=page" : "" %>>
+        <svg class="bi pe-none me-2" width="16" height="16">
+          <use xlink:href="#people-circle"></use>
+        </svg>
+        Create new Category
+      </a>
+    </li>
+  </ul>
+  <hr />
+</div>

@@ -1,0 +1,41 @@
+<div class="item-card container">
+  <div class="row">
+  
+    <div class="col-2 img-container-small cursor-hover gx-0">
+      <% if(typeof item.img != "undefined") {%> 
+        <img src="<%= item.img %>" alt="<%= item.name %>" srcset="" />
+        
+      <% } else {%> 
+        <div class="img-replacement"></div>  
+      <%} %>
+    </div>
+
+    
+    <div class="col-8">
+      <div class="row mt-2">
+        
+        <div class="col-8 cursor-hover">
+          <p class="fs-5 mb-1"><%= item.name %></p>
+        </div>
+
+        <div class="col-4">
+          <p class="text-center">$ <%= item.price %>,-</p>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-8 cursor-hover">
+          <p class="text-truncate mb-0" style="max-width: 80%">
+            <%= item.description %>
+          </p>
+        </div>
+        <div class="col-4">
+          <p class="mb-1 text-center"><%= item.number_in_stock %> in stock</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-1 position-relative">
+      <a href="<%= item.url %>"><button class="btn btn-primary position-absolute top-50 start-50 translate-middle">Show</button></a>
+    </div>
+  </div>
+</div>
