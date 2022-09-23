@@ -72,6 +72,13 @@
                 /> 
             </div>
         </div>
+
+        <label for="img">Image URL</label>
+        <div class="input-group mb-3">
+            <span class="input-group-text">URL</span>
+            <input type="text" class="form-control" id="img" placeholder="Image URL" name="img" value="<%= typeof item !== "undefined" ? item.img : "" %>">
+        </div>
+
         <div class="col-auto align-items-center justify-content-center mb-3">
             <div class="mb-3">
                 <br>

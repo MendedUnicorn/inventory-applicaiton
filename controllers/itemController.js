@@ -69,6 +69,7 @@ exports.item_create_post = [
     max: 100000,
   }),
   body('number_in_stock', 'Enter a valid number').isInt({ min: 0, max: 1000 }),
+  body('img', 'Enter valid image URL').trim().isURL({ require_protocol: true }),
 
   (req, res, next) => {
     const errors = validationResult(req);
@@ -78,6 +79,7 @@ exports.item_create_post = [
       category: req.body.category,
       price: req.body.price,
       number_in_stock: req.body.number_in_stock,
+      img: req.body.img,
     });
 
     if (!errors.isEmpty()) {
@@ -164,6 +166,7 @@ exports.item_update_post = [
     max: 100000,
   }),
   body('number_in_stock', 'Enter a valid number').isInt({ min: 0, max: 1000 }),
+  body('img', 'Enter valid image URL').trim().isURL({ require_protocol: true }),
   (req, res, next) => {
     const errors = validationResult(req);
 
@@ -174,6 +177,7 @@ exports.item_update_post = [
         typeof req.body.category == 'undefined' ? [] : req.body.category,
       price: req.body.price,
       number_in_stock: req.body.number_in_stock,
+      img: req.body.img,
       _id: req.params.id,
     });
 
@@ -191,6 +195,7 @@ exports.item_update_post = [
           title: 'Update Item',
           item,
           categories,
+          errors: errors.array(),
         });
       });
       return;
