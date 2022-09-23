@@ -55,11 +55,75 @@ exports.category_create_post = [
   },
 ];
 exports.category_update_get = (req, res, next) => {
-  res.send('Not implemented yet');
+  async.parallel(
+    {
+      category(callback) {
+        Category.findById(req.params.id).exec(callback);
+      },
+      categories(callback) {
+        Category.find().exec(callback);
+      },
+    },
+    (err, results) => {
+      if (err) {
+        return next(err);
+      }
+      res.render('category_form', {
+        title: 'Update Category',
+        category: results.category,
+        categories: results.categories,
+      });
+    }
+  );
 };
-exports.category_update_post = (req, res, next) => {
-  res.send('Not implemented yet');
-};
+exports.category_update_post = [
+  body('name', 'Category needs to be at least 2 letters')
+    .trim()
+    .isLength({ min: 2 })
+    .escape(),
+  body('description', 'Please enter a longer description')
+    .trim()
+    .isLength({ min: 10 })
+    .escape(),
+  (req, res, next) => {
+    const errors = validationResult(req);
+
+    //create new category object
+    const category = new Category({
+      name: req.body.name,
+      description: req.body.description,
+      _id: req.params.id,
+    });
+
+    //if errors render page again with information usre put in
+    if (!errors.isEmpty()) {
+      Category.find().exec((err, category) => {
+        if (err) {
+          return next(err);
+        }
+        res.render('category_form', {
+          title: 'Update Category',
+          category,
+          errors: errors.array(),
+        });
+      });
+      return;
+    }
+
+    Category.findByIdAndUpdate(
+      req.params.id,
+      category,
+      {},
+      (err, thecategory) => {
+        if (err) {
+          return next(err);
+        }
+        console.log('Updated: ', thecategory);
+        res.redirect(thecategory.url);
+      }
+    );
+  },
+];
 exports.category_delete_get = (req, res, next) => {
   async.parallel(
     {

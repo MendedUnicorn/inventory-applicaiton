@@ -6,17 +6,23 @@
     <div class="row ">
         <div class="col-sm-8 position-relative">
             <p  class="f-4" style="height:100px"><%= item.description %></p>
-            <div class="buttons position-absolute bottom-0">
-                <a href="/catalog/item/<%=item._id %>/update"><button class="btn btn-primary">Edit</button></a>
-                <a href="/catalog/item/<%= item._id %>/delete"><button class="btn btn-danger">Delete</button></a>
+            <div class="row justify-content-between">
+                <p class="f-4 col-auto"><strong>$ <%= item.price %>,-</strong></p>
+                <p class="f-4 col-auto">Qty: <%= item.number_in_stock %></5></p>
             </div>
-                <div class="tags position-absolute bottom-0 end-0">
-                
-                <% item.category.forEach(category => { %> 
-                    <div class="tag mx-1">
-                        <a href="<%= category.url %>"><p class="m-0"><%= category.name %></p></a>
-                    </div>
-                <% }) %> 
+            <div class="row justify-content-between">   
+                <div class="buttons col-auto" >
+                    <a href="/catalog/item/<%=item._id %>/update"><button class="btn btn-primary">Edit</button></a>
+                    <a href="/catalog/item/<%= item._id %>/delete"><button class="btn btn-danger">Delete</button></a>
+                </div>
+
+                    <div class="tags col-auto" >
+                        <% item.category.forEach(category => { %> 
+                            <div class="tag mx-1">
+                                <a href="<%= category.url %>"><p class="m-0"><%= category.name %></p></a>
+                            </div>
+                        <% }) %> 
+                </div>
             </div>
         </div>
 

@@ -1,4 +1,4 @@
-<%- include("partials/upper", {active_tab: "item_form"}) %>
+<%- include("partials/upper", {active_tab: title=="Update Item" ? "" : "item_form" }) %>
 <h1><%= title %></h1>
 
 <form action="" method="POST">
@@ -75,7 +75,7 @@
         <div class="col-auto align-items-center justify-content-center mb-3">
             <div class="mb-3">
                 <br>
-                <button type="submit" class="btn btn-primary px-5">Add</button>
+                <button type="submit" class="btn btn-primary px-5"><%= title=="Update Item" ? "Update" : "Add" %></button>
             </div>
         </div>
     </div>

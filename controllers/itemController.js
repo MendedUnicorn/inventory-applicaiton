@@ -72,7 +72,6 @@ exports.item_create_post = [
 
   (req, res, next) => {
     const errors = validationResult(req);
-    console.log(req.body);
     const item = new Item({
       name: req.body.name,
       description: req.body.description,
@@ -140,9 +139,71 @@ exports.item_update_get = (req, res, next) => {
     }
   );
 };
-exports.item_update_post = (req, res, next) => {
-  res.send('Not implemented yet');
-};
+exports.item_update_post = [
+  (req, res, next) => {
+    if (!Array.isArray(req.body.category)) {
+      req.body.category =
+        typeof req.body.category == 'undefined' ? [] : [req.body.category];
+    }
+    next();
+  },
+
+  // sanetize
+  body('name', 'Must provide a proper name.')
+    .trim()
+    .isLength({ min: 2 })
+    .escape(),
+  body('description', 'Enter a proper description')
+    .trim()
+    .isLength({ min: 10 })
+    .escape(),
+  body('category.*').escape(),
+  body('price', 'Enter price').isInt({
+    allow_leading_zeroes: false,
+    min: 1,
+    max: 100000,
+  }),
+  body('number_in_stock', 'Enter a valid number').isInt({ min: 0, max: 1000 }),
+  (req, res, next) => {
+    const errors = validationResult(req);
+
+    const item = new Item({
+      name: req.body.name,
+      description: req.body.description,
+      category:
+        typeof req.body.category == 'undefined' ? [] : req.body.category,
+      price: req.body.price,
+      number_in_stock: req.body.number_in_stock,
+      _id: req.params.id,
+    });
+
+    if (!errors.isEmpty()) {
+      Category.find().exec((err, categories) => {
+        if (err) {
+          return next(err);
+        }
+        categories.forEach((category) => {
+          if (item.category.includes(category._id)) {
+            category.checked = 'true';
+          }
+        });
+        res.render('item_form', {
+          title: 'Update Item',
+          item,
+          categories,
+        });
+      });
+      return;
+    }
+    Item.findByIdAndUpdate(req.params.id, item, {}, (err, theitem) => {
+      if (err) {
+        return next(err);
+      }
+      console.log('updated: ', theitem);
+      res.redirect(theitem.url);
+    });
+  },
+];
 
 exports.item_delete_get = (req, res, next) => {
   Item.findById(req.params.id).exec((err, item) => {
