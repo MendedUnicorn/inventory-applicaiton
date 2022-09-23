@@ -23,8 +23,12 @@ exports.category_create_post = [
     .trim()
     .isLength({ min: 10 })
     .escape(),
+  // body("img", "Upload a valid image").custom( img => {
+
+  // })
   (req, res, next) => {
     const errors = validationResult(req);
+    console.log(req.file);
 
     const category = new Category({
       name: req.body.name,

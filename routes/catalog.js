@@ -4,6 +4,20 @@ const router = express.Router();
 const item_controller = require('../controllers/itemController');
 const category_controller = require('../controllers/categoryController');
 
+const multer = require('multer');
+var path = require('path');
+
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, './public/images/uploads/');
+  },
+  filename: function (req, file, cb) {
+    cb(null, Date.now() + path.extname(file.originalname)); //Appending extension
+  },
+});
+
+var upload = multer({ storage: storage });
+
 // all controlers
 
 // item controller
@@ -34,7 +48,11 @@ router.get('/items', item_controller.item_list);
 // Category Routes
 // Create
 router.get('/category/create', category_controller.category_create_get);
-router.post('/category/create', category_controller.category_create_post);
+router.post(
+  '/category/create',
+  upload.single('upload_img'),
+  category_controller.category_create_post
+);
 // Delete
 router.get('/category/:id/delete', category_controller.category_delete_get);
 router.post('/category/:id/delete', category_controller.category_delete_post);
